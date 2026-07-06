@@ -3,12 +3,10 @@ import React from 'react';
 const DashboardStats = ({ currentData, totalPool }) => {
   const visibleCount = currentData.length;
 
-  // Metric Calculation 1: Extract Median/Mean Average Page Count
   const averagePages = visibleCount > 0 
     ? Math.round(currentData.reduce((acc, curr) => acc + curr.pages, 0) / visibleCount) 
     : 0;
 
-  // Metric Calculation 2: Determine Earliest Dynamic Range Bound (Oldest Historical Work)
   const oldestYear = visibleCount > 0 
     ? Math.min(...currentData.map(b => b.publishYear)) 
     : 'N/A';

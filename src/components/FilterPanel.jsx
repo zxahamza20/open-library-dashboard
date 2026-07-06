@@ -8,7 +8,6 @@ const FilterPanel = ({
 }) => {
   return (
     <div className="filter-panel">
-      {/* Feature 1: Search text input */}
       <div className="filter-group text-search">
         <label htmlFor="search">Search Title:</label>
         <input 
@@ -20,7 +19,6 @@ const FilterPanel = ({
         />
       </div>
 
-      {/* Feature 2: Dropdown categorization using alternate language property */}
       <div className="filter-group category-select">
         <label htmlFor="language">Language Classification:</label>
         <select 
@@ -36,7 +34,6 @@ const FilterPanel = ({
         </select>
       </div>
 
-      {/* Feature 3: Explicit numeric constraints for bound values */}
       <div className="filter-group bounds-input">
         <label>Page Length Scope:</label>
         <div className="bounds-row">

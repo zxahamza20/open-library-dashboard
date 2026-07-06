@@ -8,29 +8,24 @@ const App = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Filter input states
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState('All');
   const [minPages, setMinPages] = useState(0);
   const [maxPages, setMaxPages] = useState(1000);
 
-  // Fetch data using useEffect and async/await syntax
   useEffect(() => {
     const fetchBooks = async () => {
       try {
         setLoading(true);
-        // Querying "history" books with page counts from Open Library API
         const response = await fetch('https://openlibrary.org/search.json?subject=history&limit=100');
         const data = await response.json();
 
-        // Map and clean raw data to match requirements (each row must have at least two features)
         const formattedBooks = (data.docs || [])
-          .filter(item => item.title && item.first_publish_year) // Data verification
+          .filter(item => item.title && item.first_publish_year) 
           .map((item, index) => ({
             id: item.key || index,
             title: item.title,
             publishYear: item.first_publish_year,
-            // Fallback parameters if specific items lack pages or language fields
             pages: item.number_of_pages_median || Math.floor(Math.random() * 300) + 150, 
             language: item.language && item.language[0] ? item.language[0] : 'eng',
             author: item.author_name ? item.author_name[0] : 'Unknown Author'
@@ -45,17 +40,11 @@ const App = () => {
     };
 
     fetchBooks();
-  }, []); // Empty array ensures this hook executes only once on mount
+  }, []); 
 
-  // --- Filtering Logic (Dynamic updates as user interacts) ---
   const filteredBooks = books.filter((book) => {
-    // 1. Search Bar Filter (matches item titles)
     const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    // 2. Category Filter (restricts displayed items using language attribute)
     const matchesCategory = selectedLanguage === 'All' || book.language === selectedLanguage;
-    
-    // 3. Specific Bounds Filter (numeric constraints on page totals)
     const matchesBounds = book.pages >= minPages && book.pages <= maxPages;
 
     return matchesSearch && matchesCategory && matchesBounds;
@@ -72,10 +61,8 @@ const App = () => {
         <div className="loading-state">Gathering database records...</div>
       ) : (
         <>
-          {/* Summary Statistics Component */}
           <DashboardStats currentData={filteredBooks} totalPool={books.length} />
 
-          {/* Interactive Controls Component */}
           <FilterPanel 
             searchQuery={searchQuery} 
             setSearchQuery={setSearchQuery}
@@ -87,7 +74,6 @@ const App = () => {
             setMaxPages={setMaxPages}
           />
 
-          {/* Tabular List View Components */}
           <section className="list-container">
             <div className="table-header">
               <span>Book Title & Author</span>
