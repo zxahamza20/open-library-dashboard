@@ -49,6 +49,26 @@ const FilterPanel = ({
           <option value="fre">French (fre)</option>
           <option value="ger">German (ger)</option>
           <option value="spa">Spanish (spa)</option>
+          <option value="ita">Italian (ita)</option>
+          <option value="rus">Russian (rus)</option>
+          <option value="jpn">Japanese (jpn)</option>
+          <option value="chi">Chinese (chi)</option>
+          <option value="hun">Hungarian (hun)</option>
+          <option value="por">Portuguese (por)</option>
+          <option value="tgl">Tagalog (tgl)</option>
+          <option value="ara">Arabic (ara)</option>
+          <option value="dut">Dutch (dut)</option>
+          <option value="heb">Hebrew (heb)</option>
+          <option value="pol">Polish (pol)</option>
+          <option value="swe">Swedish (swe)</option>
+          <option value="per">Persian (per)</option>
+          <option value="nor">Norwegian (nor)</option>
+          <option value="mul">Multilingual(mul)</option>
+          <option value="mal">Malay (mal)</option>
+          <option value="hin">Hindi (hin)</option>
+          <option value="ind">Indonesian (ind)</option>
+          <option value="tur">Turkish (tur)</option>
+          <option value="tel">Telugu (tel)</option>
         </select>
       </div>
 
