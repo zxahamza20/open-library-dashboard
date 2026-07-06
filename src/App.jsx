@@ -20,7 +20,7 @@ const App = () => {
         setLoading(true);
 
         const fetchPromises = SUBJECTS.map(subject =>
-          fetch(`https://openlibrary.org/search.json?subject=${subject}&limit=2500`)
+          fetch(`https://openlibrary.org/search.json?subject=${subject}&limit=500`)
             .then(res => res.json())
             .then(data => ({ subject, docs: data.docs || [] }))
         );
@@ -96,7 +96,7 @@ const App = () => {
 
           <section className="list-container">
             <div className="table-header">
-              <span>Book Title & Author</span>
+              <span className="text-left">Book Title & Author</span>
               <span className="text-center">Subject</span>
               <span className="text-center">Publish Year</span>
               <span className="text-center">Median Pages</span>

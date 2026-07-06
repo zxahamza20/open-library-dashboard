@@ -3,11 +3,10 @@ import React from 'react';
 const BookRow = ({ book }) => {
   return (
     <div className="book-row">
-      <div className="book-info">
+      <div className="book-info text-left">
         <span className="book-title">{book.title}</span>
         <span className="book-author">by {book.author}</span>
       </div>
-      
       <div className="book-meta-field text-center subject-tag">
         {book.subject.toUpperCase()}
       </div>
