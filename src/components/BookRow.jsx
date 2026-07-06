@@ -7,6 +7,10 @@ const BookRow = ({ book }) => {
         <span className="book-title">{book.title}</span>
         <span className="book-author">by {book.author}</span>
       </div>
+      {/* Displaying the custom tag we created during the fetch phase */}
+      <div className="book-meta-field text-center subject-tag">
+        {book.subject.toUpperCase()}
+      </div>
       <div className="book-meta-field text-center">
         {book.publishYear}
       </div>

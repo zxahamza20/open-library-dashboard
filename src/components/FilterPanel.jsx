@@ -2,12 +2,14 @@ import React from 'react';
 
 const FilterPanel = ({
   searchQuery, setSearchQuery,
+  selectedSubject, setSelectedSubject,
   selectedLanguage, setSelectedLanguage,
   minPages, setMinPages,
   maxPages, setMaxPages
 }) => {
   return (
     <div className="filter-panel">
+      {/* Search Filter */}
       <div className="filter-group text-search">
         <label htmlFor="search">Search Title:</label>
         <input 
@@ -19,8 +21,27 @@ const FilterPanel = ({
         />
       </div>
 
+      {/* NEW Feature: Subject Filter Dropdown */}
       <div className="filter-group category-select">
-        <label htmlFor="language">Language Classification:</label>
+        <label htmlFor="subject">Subject / Genre:</label>
+        <select 
+          id="subject"
+          value={selectedSubject} 
+          onChange={(e) => setSelectedSubject(e.target.value)}
+        >
+          <option value="All">All Subjects</option>
+          <option value="history">History</option>
+          <option value="art">Art</option>
+          <option value="fantasy">Fantasy</option>
+          <option value="science">Science</option>
+          <option value="fiction">Fiction</option>
+          <option value="nonfiction">Non-Fiction</option>
+        </select>
+      </div>
+
+      {/* Language Filter */}
+      <div className="filter-group category-select">
+        <label htmlFor="language">Language:</label>
         <select 
           id="language"
           value={selectedLanguage} 
@@ -34,6 +55,7 @@ const FilterPanel = ({
         </select>
       </div>
 
+      {/* Page Bounds Filter */}
       <div className="filter-group bounds-input">
         <label>Page Length Scope:</label>
         <div className="bounds-row">
