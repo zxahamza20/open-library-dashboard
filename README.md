@@ -49,6 +49,20 @@ GIF created with ...
 [ScreenToGif](https://www.screentogif.com/) for Windows
 [peek](https://github.com/phw/peek) for Linux. -->
 
+### Production Images
+
+**Default**
+<img src='https://i.imgur.com/dbZ1cWD.jpeg' title='Default' width='100%' alt='Default' />
+
+**Filtering by input text**
+<img src='https://i.imgur.com/mB6NbaT.png' title='Filtering by input text' width='100%' alt='Filtering by input text' />
+
+**Multiple Filters Applied + Bounds**
+<img src='https://i.imgur.com/WT5MNyO.png' title='Multiple Filters Applied' width='100%' alt='Multiple Filters Applied' />
+
+**Getting Non-Fiction**
+<img src='https://i.imgur.com/OiYZoU3.png' title='Getting Non-Fiction' width='100%' alt='Getting Non-Fiction' />
+
 ## Notes
 
 1. The biggest challenge was adding the pagination because rendering 1000s of entries on each reload took a toll on the browser and took a while as the cache filled but in the end I could not add it after all so I oput it as a todo for part 2.
