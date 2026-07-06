@@ -17,7 +17,7 @@ const App = () => {
     const fetchBooks = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://openlibrary.org/search.json?subject=history&limit=100');
+        const response = await fetch('https://openlibrary.org/search.json?subject=history&limit=500');
         const data = await response.json();
 
         const formattedBooks = (data.docs || [])
