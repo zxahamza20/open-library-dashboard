@@ -9,7 +9,6 @@ const FilterPanel = ({
 }) => {
   return (
     <div className="filter-panel">
-      {/* Search Filter */}
       <div className="filter-group text-search">
         <label htmlFor="search">Search Title:</label>
         <input 
@@ -21,7 +20,6 @@ const FilterPanel = ({
         />
       </div>
 
-      {/* NEW Feature: Subject Filter Dropdown */}
       <div className="filter-group category-select">
         <label htmlFor="subject">Subject / Genre:</label>
         <select 
@@ -39,7 +37,6 @@ const FilterPanel = ({
         </select>
       </div>
 
-      {/* Language Filter */}
       <div className="filter-group category-select">
         <label htmlFor="language">Language:</label>
         <select 
@@ -55,7 +52,6 @@ const FilterPanel = ({
         </select>
       </div>
 
-      {/* Page Bounds Filter */}
       <div className="filter-group bounds-input">
         <label>Page Length Scope:</label>
         <div className="bounds-row">

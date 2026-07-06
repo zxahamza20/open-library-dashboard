@@ -7,15 +7,11 @@ import './App.css';
 const App = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Filter input states
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedSubject, setSelectedSubject] = useState('All'); // New Subject Filter State
+  const [selectedSubject, setSelectedSubject] = useState('All'); 
   const [selectedLanguage, setSelectedLanguage] = useState('All');
   const [minPages, setMinPages] = useState(0);
   const [maxPages, setMaxPages] = useState(1000);
-
-  // Define the list of subjects we want to pull from the API
   const SUBJECTS = ['history', 'art', 'fantasy', 'science', 'fiction', 'nonfiction'];
 
   useEffect(() => {
@@ -23,32 +19,27 @@ const App = () => {
       try {
         setLoading(true);
 
-        // 1. Create an array of fetch promises, one for each subject
         const fetchPromises = SUBJECTS.map(subject =>
-          fetch(`https://openlibrary.org/search.json?subject=${subject}&limit=5000`)
+          fetch(`https://openlibrary.org/search.json?subject=${subject}&limit=2500`)
             .then(res => res.json())
             .then(data => ({ subject, docs: data.docs || [] }))
         );
 
-        // 2. Execute all network requests concurrently
         const results = await Promise.all(fetchPromises);
-
-        // 3. Process and merge the results into a single clean list
         const allBooks = [];
-        const seenKeys = new Set(); // Prevents duplicate books if a book belongs to multiple subjects
+        const seenKeys = new Set(); 
 
         results.forEach(({ subject, docs }) => {
           docs.forEach((item, index) => {
             const uniqueKey = item.key || `${subject}-${index}`;
 
-            // Only add the book if we haven't seen its unique key yet
             if (!seenKeys.has(uniqueKey) && item.title && item.first_publish_year) {
               seenKeys.add(uniqueKey);
 
               allBooks.push({
                 id: uniqueKey,
                 title: item.title,
-                subject: subject, // Storing the subject category to filter by it later!
+                subject: subject, 
                 publishYear: item.first_publish_year,
                 pages: item.number_of_pages_median || Math.floor(Math.random() * 300) + 150,
                 language: item.language && item.language[0] ? item.language[0] : 'eng',
@@ -69,16 +60,11 @@ const App = () => {
     fetchAllSubjects();
   }, []);
 
-  // --- Filtering Logic (Evaluated on every render) ---
   const filteredBooks = books.filter((book) => {
     const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    // Check against our new subject parameter
     const matchesSubject = selectedSubject === 'All' || book.subject === selectedSubject;
-    
     const matchesLanguage = selectedLanguage === 'All' || book.language === selectedLanguage;
     const matchesBounds = book.pages >= minPages && book.pages <= maxPages;
-
     return matchesSearch && matchesSubject && matchesLanguage && matchesBounds;
   });
 

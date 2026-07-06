@@ -87,7 +87,7 @@ body {
 }
 table-header {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr; /* Added an extra 1fr */
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr; 
   background: #f1f3f5;
   padding: 1rem;
   font-weight: bold;
@@ -96,7 +96,7 @@ table-header {
 
 .book-row {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr; /* Added an extra 1fr */
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr; 
   padding: 1rem;
   align-items: center;
   border-bottom: 1px solid var(--border-color);
