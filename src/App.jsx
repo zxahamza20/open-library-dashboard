@@ -80,9 +80,6 @@ const App = () => {
     const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesSubject = selectedSubject === 'All' || book.subject === selectedSubject;
     const matchesLanguage = selectedLanguage === 'All' || book.language === selectedLanguage;
-    // Books with an unknown page count can't be meaningfully compared against
-    // a numeric range, so we don't exclude them based on the page filter —
-    // excluding them would be just as arbitrary as inventing a number.
     const matchesBounds = book.pages === null || (book.pages >= minPages && book.pages <= maxPages);
     return matchesSearch && matchesSubject && matchesLanguage && matchesBounds;
   });
