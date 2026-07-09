@@ -12,11 +12,19 @@ const App = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('All');
   const [minPages, setMinPages] = useState(0);
   const [maxPages, setMaxPages] = useState(1000);
-  
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 30; 
+  const itemsPerPage = 50; 
 
   const SUBJECTS = ['history', 'art', 'fantasy', 'science', 'fiction', 'nonfiction'];
+
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
 
   useEffect(() => {
     const fetchAllSubjects = async () => {
@@ -24,7 +32,7 @@ const App = () => {
         setLoading(true);
 
         const fetchPromises = SUBJECTS.map(subject =>
-          fetch(`https://openlibrary.org/search.json?subject=${subject}&limit=500`)
+          fetch(`https://openlibrary.org/search.json?subject=${subject}&limit=750`)
             .then(res => res.json())
             .then(data => ({ subject, docs: data.docs || [] }))
         );
@@ -53,7 +61,7 @@ const App = () => {
           });
         });
 
-        setBooks(allBooks);
+        setBooks(shuffleArray(allBooks));
         setLoading(false);
       } catch (error) {
         console.error("Error retrieving multi-subject data from Open Library API:", error);
@@ -80,12 +88,21 @@ const App = () => {
   const indexOfLastBook = currentPage * itemsPerPage;
   const indexOfFirstBook = indexOfLastBook - itemsPerPage;
   const currentBooksSlice = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
+  const currentFirstItem = filteredBooks.length === 0 ? 0 : indexOfFirstBook + 1;
+  const currentLastItem = Math.min(indexOfLastBook, filteredBooks.length);
 
   return (
     <div className="app-container">
       <header className="app-header">
         <h1>📚 Open Library Analytics Dashboard</h1>
-        <p>Analyzing multi-genre collections through structural metrics</p>
+        <div className="header-meta">
+          <p>Analyzing multi-genre collections through structural metrics</p>
+          {!loading && (
+            <div className="view-counter">
+              Showing <span className="highlight">{currentFirstItem}-{currentLastItem}</span> of <span className="highlight">{filteredBooks.length}</span> novel records 
+            </div>
+          )}
+        </div>
       </header>
 
       {loading ? (
@@ -134,7 +151,6 @@ const App = () => {
                 </button>
                 <span className="page-info">
                   Page <strong>{currentPage}</strong> of {totalPages} 
-                  <span className="total-count">({filteredBooks.length} items total)</span>
                 </span>
                 <button 
                   onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
