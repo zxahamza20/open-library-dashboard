@@ -3,9 +3,12 @@ import React from 'react';
 const DashboardStats = ({ currentData, totalPool }) => {
   const visibleCount = currentData.length;
 
-  const averagePages = visibleCount > 0 
-    ? Math.round(currentData.reduce((acc, curr) => acc + curr.pages, 0) / visibleCount) 
-    : 0;
+  const booksWithKnownPages = currentData.filter(b => b.pages !== null);
+  const knownPagesCount = booksWithKnownPages.length;
+
+  const averagePages = knownPagesCount > 0
+    ? Math.round(booksWithKnownPages.reduce((acc, curr) => acc + curr.pages, 0) / knownPagesCount)
+    : null;
 
   const oldestYear = visibleCount > 0 
     ? Math.min(...currentData.map(b => b.publishYear)) 
@@ -19,7 +22,14 @@ const DashboardStats = ({ currentData, totalPool }) => {
       </div>
       <div className="stat-card">
         <h3>Average Volume Length</h3>
-        <p className="stat-val">{averagePages} <span className="stat-unit">pages</span></p>
+        <p className="stat-val">
+          {averagePages !== null ? averagePages : 'N/A'} <span className="stat-unit">pages</span>
+        </p>
+        <p className="stat-caveat">
+          {knownPagesCount > 0
+            ? `Based on ${knownPagesCount} of ${visibleCount} books with a known page count`
+            : 'No books in this selection have a known page count'}
+        </p>
       </div>
       <div className="stat-card">
         <h3>Earliest Publication Date</h3>

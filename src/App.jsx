@@ -11,7 +11,7 @@ const App = () => {
   const [selectedSubject, setSelectedSubject] = useState('All'); 
   const [selectedLanguage, setSelectedLanguage] = useState('All');
   const [minPages, setMinPages] = useState(0);
-  const [maxPages, setMaxPages] = useState(1000);
+  const [maxPages, setMaxPages] = useState(4000);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 50; 
 
@@ -32,7 +32,7 @@ const App = () => {
         setLoading(true);
 
         const fetchPromises = SUBJECTS.map(subject =>
-          fetch(`https://openlibrary.org/search.json?subject=${subject}&limit=750`)
+          fetch(`https://openlibrary.org/search.json?subject=${subject}&limit=1000&fields=key,title,author_name,first_publish_year,language,number_of_pages_median`)
             .then(res => res.json())
             .then(data => ({ subject, docs: data.docs || [] }))
         );
@@ -53,7 +53,7 @@ const App = () => {
                 title: item.title,
                 subject: subject, 
                 publishYear: item.first_publish_year,
-                pages: item.number_of_pages_median || Math.floor(Math.random() * 300) + 150,
+                pages: item.number_of_pages_median || null,
                 language: item.language && item.language[0] ? item.language[0] : 'eng',
                 author: item.author_name ? item.author_name[0] : 'Unknown Author'
               });
@@ -80,7 +80,10 @@ const App = () => {
     const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesSubject = selectedSubject === 'All' || book.subject === selectedSubject;
     const matchesLanguage = selectedLanguage === 'All' || book.language === selectedLanguage;
-    const matchesBounds = book.pages >= minPages && book.pages <= maxPages;
+    // Books with an unknown page count can't be meaningfully compared against
+    // a numeric range, so we don't exclude them based on the page filter —
+    // excluding them would be just as arbitrary as inventing a number.
+    const matchesBounds = book.pages === null || (book.pages >= minPages && book.pages <= maxPages);
     return matchesSearch && matchesSubject && matchesLanguage && matchesBounds;
   });
 

@@ -1,6 +1,8 @@
 import React from 'react';
 
 const BookRow = ({ book }) => {
+  const hasKnownPages = book.pages !== null;
+
   return (
     <div className="book-row">
       <div className="book-info text-left">
@@ -13,8 +15,8 @@ const BookRow = ({ book }) => {
       <div className="book-meta-field text-center">
         {book.publishYear}
       </div>
-      <div className="book-meta-field text-center highlight-metric">
-        {book.pages} pages
+      <div className={hasKnownPages ? "book-meta-field text-center highlight-metric" : "book-meta-field text-center unknown-value"}>
+        {hasKnownPages ? `${book.pages} pages` : 'N/A'}
       </div>
       <div className="book-meta-field text-center code-style">
         {book.language}
