@@ -12,6 +12,10 @@ const App = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('All');
   const [minPages, setMinPages] = useState(0);
   const [maxPages, setMaxPages] = useState(1000);
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 30; 
+
   const SUBJECTS = ['history', 'art', 'fantasy', 'science', 'fiction', 'nonfiction'];
 
   useEffect(() => {
@@ -60,6 +64,10 @@ const App = () => {
     fetchAllSubjects();
   }, []);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedSubject, selectedLanguage, minPages, maxPages]);
+
   const filteredBooks = books.filter((book) => {
     const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesSubject = selectedSubject === 'All' || book.subject === selectedSubject;
@@ -67,6 +75,11 @@ const App = () => {
     const matchesBounds = book.pages >= minPages && book.pages <= maxPages;
     return matchesSearch && matchesSubject && matchesLanguage && matchesBounds;
   });
+
+  const totalPages = Math.ceil(filteredBooks.length / itemsPerPage) || 1;
+  const indexOfLastBook = currentPage * itemsPerPage;
+  const indexOfFirstBook = indexOfLastBook - itemsPerPage;
+  const currentBooksSlice = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
 
   return (
     <div className="app-container">
@@ -102,12 +115,35 @@ const App = () => {
               <span className="text-center">Median Pages</span>
               <span className="text-center">Language</span>
             </div>
-            {filteredBooks.length > 0 ? (
-              filteredBooks.map((book) => (
+            {currentBooksSlice.length > 0 ? (
+              currentBooksSlice.map((book) => (
                 <BookRow key={book.id} book={book} />
               ))
             ) : (
               <div className="no-results">No matching volumes found for this selection filter.</div>
+            )}
+
+            {filteredBooks.length > 0 && (
+              <div className="pagination-controls">
+                <button 
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                  className="page-btn"
+                >
+                  &larr; Previous
+                </button>
+                <span className="page-info">
+                  Page <strong>{currentPage}</strong> of {totalPages} 
+                  <span className="total-count">({filteredBooks.length} items total)</span>
+                </span>
+                <button 
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  className="page-btn"
+                >
+                  Next &rarr;
+                </button>
+              </div>
             )}
           </section>
         </>

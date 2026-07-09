@@ -248,3 +248,48 @@ body::before {
   color: var(--secondary-txt);
   font-size: 1.8rem;
 }
+
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.95);
+  border-top: 1px solid var(--border-color);
+}
+
+.page-btn {
+  background-color: var(--accent-color);
+  color: #0f172a;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.page-btn:disabled {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.4);
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-size: 1rem;
+  color: var(--secondary-txt);
+}
+
+.page-info strong {
+  color: #ffffff;
+}
+
+.total-count {
+  margin-left: 0.5rem;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+}
