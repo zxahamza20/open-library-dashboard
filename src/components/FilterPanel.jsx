@@ -70,6 +70,7 @@ const FilterPanel = ({
           <option value="tur">Turkish (tur)</option>
           <option value="tel">Telugu (tel)</option>
           <option value="tam">Tamil (tam)</option>
+          <option value="tha">Thai (tha)</option>
         </select>
       </div>
 
