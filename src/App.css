@@ -562,6 +562,46 @@ body::before {
   color: #fff;
 }
 
+.chart-stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.chart-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.chart-stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--secondary-txt);
+}
+
+.chart-stat-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.chart-stat-sub {
+  font-size: 0.75rem;
+  color: var(--secondary-txt);
+}
+
+.chart-footnote {
+  margin: 0.6rem 0 0 0;
+  font-size: 0.75rem;
+  color: var(--secondary-txt);
+  opacity: 0.75;
+}
+
 .chart-empty {
   color: var(--secondary-txt);
   font-size: 0.9rem;

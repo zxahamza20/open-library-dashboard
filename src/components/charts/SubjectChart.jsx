@@ -25,6 +25,17 @@ const SubjectChart = ({ data, SUBJECTS }) => {
     return subjectData.reduce((max, curr) => (curr.count > max.count ? curr : max), subjectData[0]);
   }, [subjectData]);
 
+  const bottomSubject = useMemo(() => {
+    const nonEmpty = subjectData.filter(s => s.count > 0);
+    if (nonEmpty.length < 2) return null;
+    return nonEmpty.reduce((min, curr) => (curr.count < min.count ? curr : min), nonEmpty[0]);
+  }, [subjectData]);
+
+  const avgPerSubject = useMemo(() => {
+    if (subjectData.length === 0) return null;
+    return Math.round(data.length / subjectData.length);
+  }, [subjectData, data.length]);
+
   return (
     <div className="chart-card">
       <div className="chart-card-header">
@@ -86,11 +97,27 @@ const SubjectChart = ({ data, SUBJECTS }) => {
       </ResponsiveContainer>
 
       {topSubject && topSubject.count > 0 && (
-        <p className="chart-annotation">
-          <strong>{topSubject.subject}</strong> is currently the largest category in your filtered
-          selection, with {topSubject.count} of {data.length} matching books. Try narrowing the
-          Subject filter to compare categories more directly.
-        </p>
+        <div className="chart-stat-row">
+          <div className="chart-stat">
+            <span className="chart-stat-label">Most books</span>
+            <span className="chart-stat-value">{topSubject.subject}</span>
+            <span className="chart-stat-sub">{topSubject.count} of {data.length}</span>
+          </div>
+          {bottomSubject && (
+            <div className="chart-stat">
+              <span className="chart-stat-label">Fewest books</span>
+              <span className="chart-stat-value">{bottomSubject.subject}</span>
+              <span className="chart-stat-sub">{bottomSubject.count} of {data.length}</span>
+            </div>
+          )}
+          {avgPerSubject !== null && (
+            <div className="chart-stat">
+              <span className="chart-stat-label">Average per subject</span>
+              <span className="chart-stat-value">{avgPerSubject}</span>
+              <span className="chart-stat-sub">books</span>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

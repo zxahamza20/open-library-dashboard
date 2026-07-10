@@ -20,7 +20,7 @@ const DecadeTrendChart = ({ data }) => {
 
     return Object.keys(buckets)
       .map(Number)
-      .filter(decade => buckets[decade].count >= 2)
+      .filter(decade => buckets[decade].count >= 2) 
       .sort((a, b) => a - b)
       .map(decade => ({
         decade: `${decade}s`,
@@ -32,6 +32,18 @@ const DecadeTrendChart = ({ data }) => {
   const peakDecade = useMemo(() => {
     if (decadeData.length === 0) return null;
     return decadeData.reduce((max, curr) => (curr.avgPages > max.avgPages ? curr : max), decadeData[0]);
+  }, [decadeData]);
+
+  const lowDecade = useMemo(() => {
+    if (decadeData.length < 2) return null;
+    return decadeData.reduce((min, curr) => (curr.avgPages < min.avgPages ? curr : min), decadeData[0]);
+  }, [decadeData]);
+
+  const overallAvgPages = useMemo(() => {
+    if (decadeData.length === 0) return null;
+    const totalPages = decadeData.reduce((sum, d) => sum + d.avgPages * d.count, 0);
+    const totalCount = decadeData.reduce((sum, d) => sum + d.count, 0);
+    return totalCount > 0 ? Math.round(totalPages / totalCount) : null;
   }, [decadeData]);
 
   return (
@@ -85,13 +97,31 @@ const DecadeTrendChart = ({ data }) => {
           </ResponsiveContainer>
 
           {peakDecade && (
-            <p className="chart-annotation">
-              Books published in the <strong>{peakDecade.decade}</strong> have the highest average
-              length in this selection, at {peakDecade.avgPages} pages (based on {peakDecade.count}{' '}
-              books from that decade with a known page count). Decades with fewer than 2 matching
-              books are excluded to avoid noisy single-book averages.
-            </p>
+            <div className="chart-stat-row">
+              <div className="chart-stat">
+                <span className="chart-stat-label">Longest average</span>
+                <span className="chart-stat-value">{peakDecade.decade}</span>
+                <span className="chart-stat-sub">{peakDecade.avgPages} pages ({peakDecade.count} books)</span>
+              </div>
+              {lowDecade && (
+                <div className="chart-stat">
+                  <span className="chart-stat-label">Shortest average</span>
+                  <span className="chart-stat-value">{lowDecade.decade}</span>
+                  <span className="chart-stat-sub">{lowDecade.avgPages} pages ({lowDecade.count} books)</span>
+                </div>
+              )}
+              {overallAvgPages !== null && (
+                <div className="chart-stat">
+                  <span className="chart-stat-label">Overall average</span>
+                  <span className="chart-stat-value">{overallAvgPages}</span>
+                  <span className="chart-stat-sub">pages, across all decades shown</span>
+                </div>
+              )}
+            </div>
           )}
+          <p className="chart-footnote">
+            Decades with fewer than 2 matching books are excluded to avoid noisy single-book averages.
+          </p>
         </>
       )}
     </div>
