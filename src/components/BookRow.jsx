@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const BookRow = ({ book }) => {
   const hasKnownPages = book.pages !== null;
@@ -6,7 +7,9 @@ const BookRow = ({ book }) => {
   return (
     <div className="book-row">
       <div className="book-info text-left">
-        <span className="book-title">{book.title}</span>
+        <Link to={`/book/${encodeURIComponent(book.id)}`} className="book-title-link">
+          <span className="book-title">{book.title}</span>
+        </Link>
         <span className="book-author">by {book.author}</span>
       </div>
       <div className="book-meta-field text-center subject-tag">
