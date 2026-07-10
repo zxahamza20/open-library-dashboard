@@ -2,7 +2,6 @@ import React from 'react';
 
 const DashboardStats = ({ currentData, totalPool }) => {
   const visibleCount = currentData.length;
-
   const booksWithKnownPages = currentData.filter(b => b.pages !== null);
   const knownPagesCount = booksWithKnownPages.length;
 
@@ -28,7 +27,7 @@ const DashboardStats = ({ currentData, totalPool }) => {
         <p className="stat-caveat">
           {knownPagesCount > 0
             ? `Based on ${knownPagesCount} of ${visibleCount} books with a known page count`
-            : 'No books in this selection have a known page count'}
+            : 'No books in this selection have a known page count!'}
         </p>
       </div>
       <div className="stat-card">
