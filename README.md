@@ -129,26 +129,32 @@ GIF created with Kap (MacOS)
 
 ### Production Images
 
-****
-<img src='' title='' width='' alt='' />
+**Default Dashboard view (Graphs)**
+<img src='https://i.imgur.com/WENTGv9.jpeg' title='Default Dashboard view (Graphs)' width='' alt='Default Dashboard view (Graphs)' />
 
-****
-<img src='' title='' width='' alt='' />
+**Default Dashboard view (Book items)**
+<img src='https://i.imgur.com/XfaWn1h.jpeg' title='Default Dashboard view (Book items)' width='' alt='Default Dashboard view (Book items)' />
 
-****
-<img src='' title='' width='' alt='' />
+**Default Dashboard view (End of page)**
+<img src='https://i.imgur.com/6rx4gzc.jpeg' title='Default Dashboard view (End of page)' width='' alt='Default Dashboard view (End of page)' />
 
-****
-<img src='' title='' width='' alt='' />
+**About the data page**
+<img src='https://i.imgur.com/k5X6YyR.jpeg' title='About the data page' width='' alt='About the data page' />
 
-****
-<img src='' title='' width='' alt='' />
+**Subject filter (Prefiltered/from the filter bar)**
+<img src='https://i.imgur.com/dWBQkRE.jpeg' title='Subject filter (Prefiltered/from the filter bar)' width='' alt='Subject filter (Prefiltered/from the filter bar)' />
 
-****
-<img src='' title='' width='' alt='' />
+**Partial Filter (Name entry in the input field)**
+<img src='https://i.imgur.com/dFuDqQv.jpeg' title='Partial Filter (Name entry in the input field)' width='' alt='Partial Filter (Name entry in the input field)' />
 
-****
-<img src='' title='' width='' alt='' />
+**Details of the book item (upon clicking the name in the table)**
+<img src='https://i.imgur.com/iHQFgZL.jpeg' title='Details of the book item (upon clicking the name in the table)' width='' alt='Details of the book item (upon clicking the name in the table)' />
+
+**Subject Graph with tooltip (value of the specific data point)**
+<img src='https://i.imgur.com/W5dxCmb.jpeg' title='Subject Graph with tooltip (value of the specific data point)' width='' alt='Subject Graph with tooltip (value of the specific data point)' />
+
+**Decade Trend Graph with tooltip (value of the specific data point)**
+<img src='https://i.imgur.com/gF7ZGJc.jpeg' title='Decade Trend Graph with tooltip (value of the specific data point)' width='' alt='Decade Trend Graph with tooltip (value of the specific data point)' />
 
 ## Notes
 
