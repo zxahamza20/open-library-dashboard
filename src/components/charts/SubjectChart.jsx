@@ -63,7 +63,7 @@ const SubjectChart = ({ data, SUBJECTS }) => {
             <XAxis dataKey="subject" stroke="#e4f0ff" fontSize={12} />
             <YAxis stroke="#e4f0ff" fontSize={12} allowDecimals={false} />
             <Tooltip
-              contentStyle={{ background: '#0f172a', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 6 }}
+              contentStyle={{ background: '#4b72ce', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 6 }}
               labelStyle={{ color: '#fff' }}
             />
             <Bar dataKey="count" radius={[4, 4, 0, 0]}>
